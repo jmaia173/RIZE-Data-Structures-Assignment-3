@@ -1,0 +1,12 @@
+A stack is the right choice for undo/redo because both operations follow last-in, first-out order. The most recent action is always the first one a user wants to 
+reverse, so pop() on the undo stack returns exactly that action. Moving it to the redo stack preserves order: undoing several actions and then redoing them replays
+them in reverse of the undo sequence, which restores the original history. Performing a new action clears the redo stack, since the old future no longer applies.
+
+A queue is better suited for the help desk because fairness depends on first in, first out order. Customers should be helped in the order they arrived, so the person 
+who waited longest is at the front. Enqueue adds to the rear, dequeue removes from the front, and peek shows who is next without changing the line. A stack would serve 
+the newest customer first and could leave early arrivals waiting indefinitely.
+
+My implementations differ from Python's built-in lists in that they are linked structures made of Node objects and expose only the operations each abstract data type allows. 
+A list lets code insert, remove, or read at any index, which could accidentally break stack or queue behavior. My stack only touches the top, and my queue only touches the front 
+and rear, so every push, pop, enqueue, and dequeue runs in constant time. A list's pop(0) has to shift every remaining element, making it O(n), while my queue tracks a rear 
+pointer to avoid that. The tradeoff is that my versions have no indexing or slicing, and each element uses extra memory for its next pointer.
